@@ -30,5 +30,4 @@ temp/
 # Uploaded files
 uploads/
 # testing file
-razorpay_keys.csv
 node_modules/
