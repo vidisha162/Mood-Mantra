@@ -81,3 +81,48 @@ app.listen(port, () => {
   notificationService.start();
   console.log("Notification service started");
 });
+
+
+
+// import express from "express";
+// import Razorpay from "razorpay";
+// import fs from "fs";
+// import csv from "csv-parser";
+
+// const app = express();
+// app.use(express.json());
+
+// let razorpay;
+
+// fs.createReadStream("razorpay_keys.csv")
+//   .pipe(csv())
+//   .on("data", (row) => {
+//     razorpay = new Razorpay({
+//       key_id: row.key_id,
+//       key_secret: row.key_secret,
+//     });
+//     console.log("🔑 Loaded key_id:", row.key_id);
+//   })
+//   .on("end", () => {
+//     console.log("✅ Razorpay instance ready");
+//   });
+
+// // Test create order
+// app.post("/test-payment", async (req, res) => {
+//   try {
+//     const { amount, currency } = req.body;
+//     const order = await razorpay.orders.create({
+//       amount,
+//       currency,
+//       receipt: "test_receipt_" + Date.now(),
+//     });
+//     res.json({ success: true, order });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// });
+
+// app.listen(4000, () => console.log("Server running on port 4000"));
+
+

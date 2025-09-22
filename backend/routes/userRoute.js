@@ -43,4 +43,7 @@ userRouter.post("/payment-razorpay", authUser, paymentRazorpay);
 userRouter.post("/verify-razorpay", authUser, verifyRazorpay);
 userRouter.post("/cancel-payment", authUser, cancelPayment);
 
+
+
+
 export default userRouter;
