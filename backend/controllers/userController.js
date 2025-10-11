@@ -232,6 +232,14 @@ const updateProfile = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
 // API to book appointment
 const bookAppointment = async (req, res) => {
   try {
@@ -408,21 +416,115 @@ const cancelAppointment = async (req, res) => {
 //   key_secret: process.env.RAZORPAY_KEY_SECRET,
 // });
 
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// // Debug file system
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// console.log("🔍 Debugging Razorpay Initialization:");
+// console.log("Current directory:", process.cwd());
+// console.log("File directory:", __dirname);
+
+// // Check if CSV file exists and is readable
+// const csvPath = path.join(process.cwd(), 'razorpay_keys.csv');
+// console.log("CSV path:", csvPath);
+
+// try {
+//   if (fs.existsSync(csvPath)) {
+//     console.log("✅ CSV file exists");
+//     const stats = fs.statSync(csvPath);
+//     console.log("File size:", stats.size, "bytes");
+    
+//     // Read file content
+//     const content = fs.readFileSync(csvPath, 'utf8');
+//     console.log("CSV content:", content);
+//   } else {
+//     console.log("❌ CSV file not found at:", csvPath);
+    
+//     // List all files to see what's available
+//     const files = fs.readdirSync(process.cwd());
+//     console.log("Available files:", files);
+//   }
+// } catch (error) {
+//   console.log("❌ Error checking CSV:", error.message);
+// }
+
+// let razorpayInstance;
+
+// //Read CSV file and initialize Razorpay instance
+// fs.createReadStream("razorpay_keys.csv") 
+//   .pipe(csv())
+//   .on("data", (row) => {
+//     razorpayInstance = new Razorpay({
+//       key_id: row.key_id,
+//       key_secret: row.key_secret,
+//     });
+//   })
+//   .on("end", () => {
+//     console.log("✅ Razorpay instance created from CSV");
+//   });
+
+
+
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+// import fs from 'fs'; // ← ADD THIS IMPORT
+// import csv from 'csv-parser';
+
+// Debug file system
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log("🔍 Debugging Razorpay Initialization:");
+console.log("Current directory:", process.cwd());
+console.log("File directory:", __dirname);
+
+// Check if CSV file exists and is readable
+const csvPath = path.join(process.cwd(), 'razorpay_keys.csv');
+console.log("CSV path:", csvPath);
+
+try {
+  if (fs.existsSync(csvPath)) {
+    console.log("✅ CSV file exists");
+    const stats = fs.statSync(csvPath);
+    console.log("File size:", stats.size, "bytes");
+    
+    // Read file content
+    const content = fs.readFileSync(csvPath, 'utf8');
+    console.log("CSV content:", content);
+  } else {
+    console.log("❌ CSV file not found at:", csvPath);
+    
+    // List all files to see what's available
+    const files = fs.readdirSync(process.cwd());
+    console.log("Available files:", files);
+  }
+} catch (error) {
+  console.log("❌ Error checking CSV:", error.message);
+}
+
 let razorpayInstance;
 
-//Read CSV file and initialize Razorpay instance
+// Read CSV file and initialize Razorpay instance
 fs.createReadStream("razorpay_keys.csv") 
   .pipe(csv())
   .on("data", (row) => {
+    console.log("📋 CSV row data:", row); // ← ADD DEBUG LOG
     razorpayInstance = new Razorpay({
       key_id: row.key_id,
       key_secret: row.key_secret,
     });
+    console.log("✅ Razorpay instance created"); // ← ADD CONFIRMATION
   })
   .on("end", () => {
-    console.log("✅ Razorpay instance created from CSV");
+    console.log("📄 CSV reading completed");
+  })
+  .on("error", (error) => {
+    console.log("❌ CSV read error:", error); // ← ADD ERROR HANDLING
   });
-
 
 
 
@@ -713,6 +815,21 @@ const getSlotAvailability = async (req, res) => {
 setInterval(cleanupExpiredReservations, 5 * 60 * 1000);
 
 // export all user controllers
+// export {
+//   registerUser,
+//   loginUser,
+//   googleLogin,
+//   getProfile,
+//   updateProfile,
+//   bookAppointment,
+//   listAppointment,
+//   cancelAppointment,
+//   paymentRazorpay,
+//   verifyRazorpay,
+//   getSlotAvailability,
+//           // Make sure this is defined above
+//   cancelPayment,
+// };
 export {
   registerUser,
   loginUser,
